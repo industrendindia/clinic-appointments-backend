@@ -1,0 +1,24 @@
+spring:
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/clinic}
+    username: ${DB_USER:clinic_owner}
+    password: ${DB_PASSWORD:clinic_owner}
+    hikari:
+      schema: clinic_app
+  jpa:
+    open-in-view: false
+    properties:
+      hibernate:
+        default_schema: clinic_app
+        jdbc.time_zone: Asia/Kolkata
+    hibernate.ddl-auto: validate
+  flyway:
+    schemas: clinic_app
+    default-schema: clinic_app
+    create-schemas: true
+server:
+  error:
+    include-message: always
+app:
+  jwt-secret: ${JWT_SECRET:replace-this-with-a-very-long-development-secret-key}
+  jwt-minutes: 480
