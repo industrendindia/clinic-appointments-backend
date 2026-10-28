@@ -22,3 +22,5 @@ server:
 app:
   jwt-secret: ${JWT_SECRET:replace-this-with-a-very-long-development-secret-key}
   jwt-minutes: 480
+  bootstrap-admin-username: ${BOOTSTRAP_ADMIN_USERNAME:}
+  bootstrap-admin-password: ${BOOTSTRAP_ADMIN_PASSWORD:}
