@@ -38,7 +38,7 @@ public class OperationsApi {
 
  @GetMapping("/practitioners") List<Map<String,Object>> practitioners(@AuthenticationPrincipal TenantPrincipal p){tenant(p);return db.queryForList("""
  select pr.id,pr.full_name,pr.dob,pr.joined_on,pr.engagement,pr.years_experience,pr.rate,pr.salary,pr.phone,pr.active,u.username,pr.photo_content_type,encode(pr.photo_data,'base64') photo_base64,
- coalesce((select array_agg(x.service_id) from practitioner_services x where x.practitioner_id=pr.id),'{}') service_ids,
+ coalesce((select jsonb_agg(x.service_id)::text from practitioner_services x where x.practitioner_id=pr.id),'[]') service_ids,
  coalesce(string_agg(distinct s.name,', '),'') services,coalesce(string_agg(distinct pa.day_of_week||':'||pa.starts_at||'-'||pa.ends_at,', '),'') availability
  from practitioners pr left join users u on u.id=pr.user_id left join practitioner_services ps on ps.practitioner_id=pr.id
  left join services s on s.id=ps.service_id left join practitioner_availability pa on pa.practitioner_id=pr.id
